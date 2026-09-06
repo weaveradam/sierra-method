@@ -5,6 +5,7 @@ description <https://fireforce6.github.io/mission-control/operational-analysis/c
     uses <https://www.modelware.io/sierra/base#> as base
     uses <https://www.modelware.io/sierra/mission#> as mission
     extends <https://fireforce6.github.io/mission-control/context-analysis/objectives#> as objectives
+    
 
     instance C1 : mission:Capability [
         base:description "Enable view of fire state from specific time points."

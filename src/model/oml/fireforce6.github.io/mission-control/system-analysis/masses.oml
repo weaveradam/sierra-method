@@ -465,4 +465,14 @@ description <https://fireforce6.github.io/mission-control/system-analysis/masses
     ref instance components:GPSProcessor : component:PhysicalPart [
         component:mass 0.2^^si:kg
     ]
+
+    @dc:description "Payload Fairing"
+    ref instance components:PayloadFairing : component:PhysicalPart [
+        component:mass 1000^^si:kg
+    ]
+
+    @dc:description "Booster Separation System"
+    ref instance components:BoosterSeparationSystem : component:PhysicalPart [
+        component:mass 50^^si:kg
+    ]
 }

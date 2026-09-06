@@ -6,6 +6,7 @@ description <https://fireforce6.github.io/mission-control/operational-analysis/r
     uses <https://www.modelware.io/sierra/stakeholder#> as stakeholder
     extends <https://fireforce6.github.io/mission-control/context-analysis/stakeholders#> as stakeholders
 
+
     instance R1 : stakeholder:Requirement [
         base:description "Real-Time Map"
         base:expression "The system shall display real-time fire and drone locations."
@@ -60,5 +61,24 @@ description <https://fireforce6.github.io/mission-control/operational-analysis/r
         stakeholder:isStatedBy stakeholders:CommandCenter
         base:category "L2"
         base:priority "Medium"
+    ]
+
+    @dc:description "The system shall ensure that the satellite service period is at least 5 years."
+    @dc:description "I wasn't sure how to link this to a concern and capability (please help!)"
+    instance R8 : stakeholder:Requirement [
+        base:description "Satellite Service Period "
+        base:expression "The system shall ensure that the satellite service period is at least 5 years."
+        stakeholder:isStatedBy stakeholders:SystemsEngineer
+        base:category "L1"
+        base:priority "Medium"
+    ]
+
+    @dc:description "The system shall be designed to minimize costs while meeting all operational requirements."
+    instance R9 : stakeholder:Requirement [
+        base:description "Cost-Effective Design"
+        base:expression "The system shall be designed to satisfy agreed-upon budget constraints while meeting all operational requirements."
+        stakeholder:isStatedBy stakeholders:SystemsEngineer
+        base:category "L1"
+        base:priority "High"
     ]
 }

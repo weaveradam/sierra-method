@@ -883,6 +883,36 @@ description <https://fireforce6.github.io/mission-control/system-analysis/compon
         base:isContainedBy GPSReceiver
     ]
 
+    @dc:description "Adding a Launch Vehicle to take the FireSat into orbit."
+    instance LaunchVehicle : component:Component [
+        base:description "Launch Vehicle"
+        base:isContainedBy FireSat
+    ]
+
+    @dc:description "Adding a Booster Stage to the Launch Vehicle."
+    instance Booster : component:Component [
+        base:description "Launch Vehicle Booster Stage"
+        base:isContainedBy LaunchVehicle
+    ]
+
+    @dc:description "Adding an Upper Stage to the Launch Vehicle."
+    instance UpperStage : component:Component [
+        base:description "Launch Vehicle Upper Stage"
+        base:isContainedBy LaunchVehicle
+    ]
+
+    @dc:description "Adding a Payload Fairing to protect the FireSat during launch."
+    instance PayloadFairing : component:Component [
+        base:description "Payload Fairing"
+        base:isContainedBy LaunchVehicle
+    ]
+
+    @dc:description "Adding a Booster Separation System to the Booster Stage."
+    instance BoosterSeparationSystem : component:Component [
+        base:description "Booster Separation Mechanism"
+        base:isContainedBy Booster
+    ]
+    
     instance FireSat : component:Component [
         base:description "FireSat Spacecraft"
     ]

@@ -4,6 +4,8 @@ description <https://fireforce6.github.io/mission-control/system-analysis/connec
 
 	uses <https://www.modelware.io/sierra/component#> as component
 
+	uses <http://purl.org/dc/elements/1.1/> as dc
+
     ref instance components:FireSat [
         component:hasPort FireSat.Command_In
         component:hasPort FireSat.Telemetry_Out
@@ -35,6 +37,42 @@ description <https://fireforce6.github.io/mission-control/system-analysis/connec
     ]
     instance Propulsion.Command_In : component:Port [ component:direction "In" ]
     instance Propulsion.Power_In : component:Port [ component:direction "In" ]
+
+    @dc:description "The Launch Vehicle has several ports for power, command, and telemetry signals."
+    ref instance components:LaunchVehicle [
+        component:hasPort LaunchVehicle.Power_In
+        component:hasPort LaunchVehicle.Command_In
+        component:hasPort LaunchVehicle.Telemetry_Out
+        component:hasPort LaunchVehicle.Command_Out
+        component:hasPort LaunchVehicle.Power_Out
+    ]
+    @dc:description "Port Descriptions for Launch Vehicle"
+    instance LaunchVehicle.Power_In : component:Port [ component:direction "In" ]
+    instance LaunchVehicle.Command_In : component:Port [ component:direction "In" ]
+    instance LaunchVehicle.Telemetry_Out : component:Port [ component:direction "Out" ]
+    instance LaunchVehicle.Command_Out : component:Port [ component:direction "Out" ]
+    instance LaunchVehicle.Power_Out : component:Port [ component:direction "Out" ]
+
+    @dc:description "The Boosters have ports for power and command"
+    ref instance components:Booster [
+        component:hasPort Booster.Power_In
+        component:hasPort Booster.Command_In
+    ]
+    @dc:description "Port Descriptions for Booster"
+    instance Booster.Power_In : component:Port [ component:direction "In" ]
+    instance Booster.Command_In : component:Port [ component:direction "In" ]
+    @dc:description "Command Connection from Launch Vehicle to Booster"
+    relation instance Conn_LaunchVehicle_to_Booster : component:Connection [
+        from LaunchVehicle.Command_Out
+        to Booster.Command_In
+        component:transfers CommandSignal
+    ]
+    @dc:description "Power Connection from Launch Vehicle to Booster"
+    relation instance Power_LaunchVehicle_to_Booster : component:Connection [
+        from LaunchVehicle.Power_Out
+        to Booster.Power_In
+        component:transfers ElectricalPower
+    ]
 
     instance TelemetrySignal : component:Signal []
     instance CommandSignal : component:Signal []
