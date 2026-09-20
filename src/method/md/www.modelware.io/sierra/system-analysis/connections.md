@@ -97,3 +97,72 @@ WHERE {
     BIND(REPLACE(STR(?item), "^.*[#/]", "") AS ?itemLabel)
 }
 ```
+
+## Connection Direction Checks
+
+Reject connections that run from an In port to an Out port.
+
+```table-editor
+---
+columns: { this: { label: "Connection" } }
+---
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix oml: <http://opencaesar.io/oml#> .
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix base: <https://www.modelware.io/sierra/base#> .
+@prefix component: <https://www.modelware.io/sierra/component#> .
+
+component:ConnectionShape
+  a sh:NodeShape ;
+  sh:targetClass component:Connection ;
+  sh:property [
+    sh:path oml:hasSource ;
+    sh:name "Source" ;
+    sh:class component:Port ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:order 1 ;
+    oml:localReference true ;
+  ] ;
+  sh:property [
+    sh:path oml:hasTarget ;
+    sh:name "Target" ;
+    sh:class component:Port ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:order 2 ;
+    oml:localReference true ;
+  ] ;
+  sh:property [
+    sh:path component:transfers ;
+    sh:name "Transfers" ;
+    sh:class base:Item ;
+    sh:maxCount 1 ;
+    sh:order 3 ;
+  ] ;
+  sh:property [
+    sh:path base:description ;
+    sh:name "Description" ;
+    dash:editor dash:TextAreaEditor ;
+    sh:maxCount 1 ;
+    sh:order 4 ;
+  ] ;
+  sh:sparql [
+    sh:message "A connection must not run from an In port to an Out port." ;
+    sh:select """
+      PREFIX component: <https://www.modelware.io/sierra/component#>
+      PREFIX oml: <http://opencaesar.io/oml#>
+      SELECT $this WHERE {
+        $this oml:hasSource ?source ;
+            oml:hasTarget ?target .
+        OPTIONAL { ?source component:direction ?sourceDirection . }
+        OPTIONAL { ?target component:direction ?targetDirection . }
+        FILTER(
+          STR(?sourceDirection) = "In" &&
+          STR(?targetDirection) = "Out"
+        )
+      }
+    """ ;
+  ] ;
+  .
+```

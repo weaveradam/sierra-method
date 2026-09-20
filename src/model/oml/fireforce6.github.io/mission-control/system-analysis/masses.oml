@@ -475,4 +475,8 @@ description <https://fireforce6.github.io/mission-control/system-analysis/masses
     ref instance components:BoosterSeparationSystem : component:PhysicalPart [
         component:mass 50^^si:kg
     ]
+
+    ref instance components:Payload : component:Component [
+        component:mass 120.0^^si:kg
+    ]
 }

@@ -108,4 +108,40 @@ description <https://fireforce6.github.io/mission-control/system-analysis/connec
         component:transfers TelemetrySignal
     ]
 
+    // ==========================================
+    // Three new real valid connection instances
+    // ==========================================
+
+    @dc:description "Backup power line from Platform to Launch Vehicle during pre-launch checks."
+    relation instance Conn_PlatformPower_to_LaunchVehicle : component:Connection [
+        from Platform.Power_Out
+        to LaunchVehicle.Power_In
+        component:transfers ElectricalPower
+    ]
+
+    @dc:description "Booster telemetry stream forwarded from Launch Vehicle into Platform data interface."
+    relation instance Conn_LaunchVehicleTelem_to_Platform : component:Connection [
+        from LaunchVehicle.Telemetry_Out
+        to Platform.Data_In
+        component:transfers TelemetrySignal
+    ]
+
+    @dc:description "Launch staging coordination commands sent from Platform to Launch Vehicle."
+    relation instance Conn_Platform_to_LaunchVehicleCmd : component:Connection [
+        from Platform.Data_Out
+        to LaunchVehicle.Command_In
+        component:transfers CommandSignal
+    ]
+
+    // ==========================================
+    // One intentional rule violation (Invalid)
+    // ==========================================
+
+    // @dc:description "INVALID: This connection connects an In port to an Out port on purpose."
+    //relation instance Conn_Invalid_Payload_to_Platform : component:Connection [
+    //   from Payload.Power_In
+    //    to Platform.Power_Out
+    //    component:transfers ElectricalPower
+    //]
+
 }
