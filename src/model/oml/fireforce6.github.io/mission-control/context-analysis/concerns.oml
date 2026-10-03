@@ -46,4 +46,13 @@ description <https://fireforce6.github.io/mission-control/context-analysis/conce
         base:priority "High"
         base:category "Need"
     ]
+
+    instance AgentTestConcern : stakeholder:Concern [
+        stakeholder:isExpressedBy stakeholders:Operator
+        base:description "Temporary test concern created to verify OML MCP write and validation workflow."
+    ]
+
+    instance AgentInvalidConcern : stakeholder:Concern [
+        stakeholder:isExpressedBy stakeholders:Operator
+    ]
 }
